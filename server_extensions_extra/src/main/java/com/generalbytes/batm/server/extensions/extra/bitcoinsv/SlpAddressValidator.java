@@ -1,4 +1,4 @@
-package com.generalbytes.batm.server.extensions.extra.bitcoincash;
+package com.generalbytes.batm.server.extensions.extra.bitcoinsv;
 
 public class SlpAddressValidator extends BitcoinSVAddressValidator {
     public SlpAddressValidator() {

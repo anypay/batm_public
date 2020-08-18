@@ -15,7 +15,7 @@
  * Web      :  http://www.generalbytes.com
  *
  ************************************************************************************/
-package com.generalbytes.batm.server.extensions.extra.bitcoincash.test;
+package com.generalbytes.batm.server.extensions.extra.bitcoinsv.test;
 
 import com.generalbytes.batm.server.extensions.payment.IPaymentOutput;
 

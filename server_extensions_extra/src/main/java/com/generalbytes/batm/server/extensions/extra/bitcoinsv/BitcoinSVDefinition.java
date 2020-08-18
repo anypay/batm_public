@@ -15,7 +15,7 @@
  * Web      :  http://www.generalbytes.com
  *
  ************************************************************************************/
-package com.generalbytes.batm.server.extensions.extra.bitcoincash;
+package com.generalbytes.batm.server.extensions.extra.bitcoinsv;
 
 import com.generalbytes.batm.server.extensions.CryptoCurrencyDefinition;
 import com.generalbytes.batm.common.currencies.CryptoCurrency;
@@ -25,7 +25,7 @@ public class BitcoinSVDefinition extends CryptoCurrencyDefinition{
     private IPaymentSupport paymentSupport = new BitcoinSVPaymentSupport();
 
     public BitcoinSVDefinition() {
-        super(CryptoCurrency.BCH.getCode(), "BitcoinSV", "bitcoincash","https://en.wikipedia.org/wiki/Bitcoin_Cash");
+        super(CryptoCurrency.BCH.getCode(), "BitcoinSV", "bitcoinsv","https://en.wikipedia.org/wiki/Bitcoin_Cash");
     }
 
     @Override

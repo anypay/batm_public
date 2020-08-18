@@ -15,7 +15,7 @@
  * Web      :  http://www.generalbytes.com
  *
  ************************************************************************************/
-package com.generalbytes.batm.server.extensions.extra.bitcoincash.wallets.telr;
+package com.generalbytes.batm.server.extensions.extra.bitcoinsv.wallets.telr;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;

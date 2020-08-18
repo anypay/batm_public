@@ -15,7 +15,7 @@
  * Web      :  http://www.generalbytes.com
  *
  ************************************************************************************/
-package com.generalbytes.batm.server.extensions.extra.bitcoincash;
+package com.generalbytes.batm.server.extensions.extra.bitcoinsv;
 
 import com.generalbytes.batm.server.extensions.AbstractExtension;
 import com.generalbytes.batm.common.currencies.CryptoCurrency;
@@ -24,8 +24,8 @@ import com.generalbytes.batm.server.extensions.ICryptoCurrencyDefinition;
 import com.generalbytes.batm.server.extensions.IPaperWalletGenerator;
 import com.generalbytes.batm.server.extensions.IRateSource;
 import com.generalbytes.batm.server.extensions.IWallet;
-import com.generalbytes.batm.server.extensions.extra.bitcoincash.sources.telr.TelrRateSource;
-import com.generalbytes.batm.server.extensions.extra.bitcoincash.wallets.telr.TelrCashWallet;
+import com.generalbytes.batm.server.extensions.extra.bitcoinsv.sources.telr.TelrRateSource;
+import com.generalbytes.batm.server.extensions.extra.bitcoinsv.wallets.telr.TelrCashWallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,10 +34,10 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.StringTokenizer;
 
-public class BitcoinCashExtension extends AbstractExtension {
-    private static final ICryptoCurrencyDefinition DEFINITION = new BitcoinCashDefinition();
+public class BitcoinSVExtension extends AbstractExtension {
+    private static final ICryptoCurrencyDefinition DEFINITION = new BitcoinSVDefinition();
     public static final String CURRENCY = CryptoCurrency.BCH.getCode();
-    private static final Logger log = LoggerFactory.getLogger(BitcoinCashExtension.class);
+    private static final Logger log = LoggerFactory.getLogger(BitcoinSVExtension.class);
 
     @Override
     public String getName() {
@@ -50,8 +50,8 @@ public class BitcoinCashExtension extends AbstractExtension {
         if (walletLogin != null && !walletLogin.trim().isEmpty()) {
             StringTokenizer st = new StringTokenizer(walletLogin, ":");
             String walletType = st.nextToken();
-            if ("bitcoincashd".equalsIgnoreCase(walletType)
-                || "bitcoincashdnoforward".equalsIgnoreCase(walletType)) {
+            if ("bitcoinsvd".equalsIgnoreCase(walletType)
+                || "bitcoinsvdnoforward".equalsIgnoreCase(walletType)) {
                 //"bitcoind:protocol:user:password:ip:port:accountname"
 
                 String protocol = st.nextToken();
@@ -71,10 +71,10 @@ public class BitcoinCashExtension extends AbstractExtension {
 
                 if (protocol != null && username != null && password != null && hostname != null && label != null) {
                     String rpcURL = protocol + "://" + username + ":" + password + "@" + hostname + ":" + port;
-                    if ("bitcoincashdnoforward".equalsIgnoreCase(walletType)) {
-                        return new BitcoinCashUniqueAddressRPCWallet(rpcURL);
+                    if ("bitcoinsvdnoforward".equalsIgnoreCase(walletType)) {
+                        return new BitcoinSVUniqueAddressRPCWallet(rpcURL);
                     }
-                    return new BitcoinCashRPCWallet(rpcURL, label);
+                    return new BitcoinSVRPCWallet(rpcURL, label);
                 }
             } else if ("telr_cash".equalsIgnoreCase(walletType)) {
                 String address = st.nextToken();
@@ -106,7 +106,7 @@ public class BitcoinCashExtension extends AbstractExtension {
     @Override
     public ICryptoAddressValidator createAddressValidator(String cryptoCurrency) {
         if (CURRENCY.equalsIgnoreCase(cryptoCurrency)) {
-            return new BitcoinCashAddressValidator();
+            return new BitcoinSVAddressValidator();
         }
         return null;
     }
@@ -114,7 +114,7 @@ public class BitcoinCashExtension extends AbstractExtension {
     @Override
     public IPaperWalletGenerator createPaperWalletGenerator(String cryptoCurrency) {
         if (CryptoCurrency.BCH.getCode().equalsIgnoreCase(cryptoCurrency)) {
-            return new BitcoinCashWalletGenerator("qqqq", ctx);
+            return new BitcoinSVWalletGenerator("qqqq", ctx);
         }
         return null;
     }

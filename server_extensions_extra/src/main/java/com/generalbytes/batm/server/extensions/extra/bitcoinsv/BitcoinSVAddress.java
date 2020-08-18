@@ -1,4 +1,4 @@
-package com.generalbytes.batm.server.extensions.extra.bitcoincash;
+package com.generalbytes.batm.server.extensions.extra.bitcoinsv;
 
 import com.generalbytes.batm.server.coinutil.AddressFormatException;
 import com.generalbytes.batm.server.coinutil.Base58;
@@ -10,11 +10,11 @@ import java.util.Objects;
 public class BitcoinSVAddress {
 
     private final String legacy;
-    private final String bitcoincash; // without prefix
+    private final String bitcoinsv; // without prefix
     private final String simpleledger; // without prefix
 
     /**
-     * @param input address in legacy, bitcoincash or simpleledger format, with human readable prefix or without
+     * @param input address in legacy, bitcoinsv or simpleledger format, with human readable prefix or without
      * @return object containing the same input address in all three formats
      * @throws AddressFormatException
      */
@@ -33,8 +33,8 @@ public class BitcoinSVAddress {
             payload = Arrays.copyOfRange(decoded, 1, decoded.length);
         } else if (!input.contains(":") && (input.startsWith("p") || input.startsWith("q"))) {
             legacyVersion = input.startsWith("p") ? 5 : 0;
-            if (Bech32.isValidCashAddress("bitcoincash:" + input)) {
-                payload = Bech32.decodeCashAddress("bitcoincash:" + input);
+            if (Bech32.isValidCashAddress("bitcoinsv:" + input)) {
+                payload = Bech32.decodeCashAddress("bitcoinsv:" + input);
             } else if (Bech32.isValidCashAddress("simpleledger:" + input)) {
                 payload = Bech32.decodeCashAddress("simpleledger:" + input);
             } else {
@@ -56,7 +56,7 @@ public class BitcoinSVAddress {
 
         return new BitcoinSVAddress(
             Base58.encodeChecked(legacyData),
-            Bech32.encodeHashToBech32Address("bitcoincash", cashVersion, payload),
+            Bech32.encodeHashToBech32Address("bitcoinsv", cashVersion, payload),
             Bech32.encodeHashToBech32Address("simpleledger", cashVersion, payload));
 
     }
@@ -64,26 +64,26 @@ public class BitcoinSVAddress {
 
     /**
      * @param legacy
-     * @param bitcoincash  without prefix
+     * @param bitcoinsv  without prefix
      * @param simpleledger without prefix
      */
-    public BitcoinSVAddress(String legacy, String bitcoincash, String simpleledger) throws AddressFormatException {
+    public BitcoinSVAddress(String legacy, String bitcoinsv, String simpleledger) throws AddressFormatException {
         this.legacy = Objects.requireNonNull(legacy);
-        this.bitcoincash = Objects.requireNonNull(bitcoincash);
+        this.bitcoinsv = Objects.requireNonNull(bitcoinsv);
         this.simpleledger = Objects.requireNonNull(simpleledger);
-        if (this.simpleledger.contains(":") || this.bitcoincash.contains(":")) {
+        if (this.simpleledger.contains(":") || this.bitcoinsv.contains(":")) {
             throw new AddressFormatException("This constructor parameters are required to be without the human readable prefix");
         }
     }
 
     /**
-     * @param address address in legacy, bitcoincash or simpleledger format, with human readable prefix or without
+     * @param address address in legacy, bitcoinsv or simpleledger format, with human readable prefix or without
      * @throws AddressFormatException
      */
     public BitcoinSVAddress(String address) throws AddressFormatException {
         BitcoinSVAddress converted = valueOf(address);
         this.legacy = converted.getLegacy();
-        this.bitcoincash = converted.getBitcoincash(false);
+        this.bitcoinsv = converted.getBitcoincash(false);
         this.simpleledger = converted.getSimpleledger(false);
     }
 
@@ -92,7 +92,7 @@ public class BitcoinSVAddress {
     }
 
     public String getBitcoincash(boolean includePrefix) {
-        return includePrefix ? "bitcoincash:" + bitcoincash : bitcoincash;
+        return includePrefix ? "bitcoinsv:" + bitcoinsv : bitcoinsv;
     }
 
     public String getSimpleledger(boolean includePrefix) {

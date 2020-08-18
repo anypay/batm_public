@@ -15,15 +15,12 @@
  * Web      :  http://www.generalbytes.com
  *
  ************************************************************************************/
-package com.generalbytes.batm.server.extensions.extra.bitcoincash;
+package com.generalbytes.batm.server.extensions.extra.bitcoinsv;
 
-import com.generalbytes.batm.common.currencies.CryptoCurrency;
-import com.generalbytes.batm.server.extensions.extra.common.RPCWallet;
+import com.generalbytes.batm.server.extensions.IGeneratesNewDepositCryptoAddress;
 
-//You need to have node running: i.e.:  bitcoind -rpcuser=rpcuser -rpcpassword=rpcpassword -rpcport=8332
-
-public class BitcoinSVRPCWallet extends RPCWallet {
-    public BitcoinSVRPCWallet(String rpcURL, String label) {
-        super(rpcURL, label, CryptoCurrency.BCH.getCode());
+public class BitcoinSVUniqueAddressRPCWallet extends BitcoinSVRPCWallet implements IGeneratesNewDepositCryptoAddress {
+    public BitcoinSVUniqueAddressRPCWallet(String rpcURL) {
+        super(rpcURL, ""); // label is used only for reusing the same address
     }
 }

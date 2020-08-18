@@ -15,7 +15,7 @@
  * Web      :  http://www.generalbytes.com
  *
  ************************************************************************************/
-package com.generalbytes.batm.server.extensions.extra.bitcoincash;
+package com.generalbytes.batm.server.extensions.extra.bitcoinsv;
 
 import com.generalbytes.batm.server.coinutil.Bech32;
 import com.generalbytes.batm.server.extensions.ICryptoAddressValidator;
@@ -29,7 +29,7 @@ public class BitcoinSVAddressValidator implements ICryptoAddressValidator {
     }
 
     public BitcoinSVAddressValidator() {
-        this("bitcoincash");
+        this("bitcoinsv");
     }
 
     @Override
